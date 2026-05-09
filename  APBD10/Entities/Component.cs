@@ -10,4 +10,6 @@ public class Component
 
     public ComponentType ComponentType { get; set; } = null!;
     public ComponentManufacturer ComponentManufacturer { get; set; } = null!;
+    
+    public ICollection<PcComponent> PcComponents { get; set; } = [];
 }

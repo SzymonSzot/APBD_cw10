@@ -8,4 +8,6 @@ public class Pc
     public int Warranty { get; set; }
     public DateTime CreatedAt { get; set; }
     public int Stock { get; set; }
+    
+    public ICollection<PcComponent> PcComponents { get; set; } = [];
 }
