@@ -7,4 +7,7 @@ public class Component
     public string Description { get; set; } = string.Empty;
     public int ComponentManufacturerId { get; set; }
     public int ComponentTypeId { get; set; }
+
+    public ComponentType ComponentType { get; set; } = null!;
+    public ComponentManufacturer ComponentManufacturer { get; set; } = null!;
 }
