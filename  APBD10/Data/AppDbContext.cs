@@ -16,6 +16,13 @@ public class AppDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<PcComponent>()
+            .HasOne(p => p.Pc)
+            .WithMany(p => p.PcComponents)
+            .HasForeignKey(p => p.PcId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        // 1. ComponentTypes
         modelBuilder.Entity<ComponentType>().HasData(new List<ComponentType>()
         {
             new ComponentType() { Id = 1, Abbreviation = "CPU", Name = "Central Processing Unit" },
@@ -50,7 +57,7 @@ public class AppDbContext : DbContext
             new Pc() { Id = 3, Name = "Budget Gamer", Weight = 9.5f, Warranty = 12, CreatedAt = new DateTime(2023, 10, 5, 9, 15, 0), Stock = 10 }
         });
 
-        // 5. PCComponents (Junction Table)
+        // 5. PCComponents
         modelBuilder.Entity<PcComponent>().HasData(new List<PcComponent>()
         {
             new PcComponent() { PcId = 1, ComponentCode = "INT-I9-139", Amount = 1 },
