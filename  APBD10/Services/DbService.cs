@@ -1,5 +1,6 @@
 ﻿using APBD10.Data;
 using APBD10.DTOs;
+using APBD10.Entities;
 using APBD10.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -79,5 +80,30 @@ public class DbService : IDbService
             throw new NotFoundException();
         
         return res;
+    }
+
+    public async Task<PostPcResponseDto> PostPc(PostPcDto dto)
+    {
+        var newPc = new Pc()
+        {
+            Name = dto.Name,
+            Weight = dto.Weight,
+            Warranty = dto.Warranty,
+            CreatedAt = dto.CreatedAt,
+            Stock = dto.Stock
+        };
+
+        await _dbContext.Pcs.AddAsync(newPc);
+        await _dbContext.SaveChangesAsync();
+        
+        return new PostPcResponseDto()
+        {
+            Id = newPc.Id,
+            Name = newPc.Name,
+            Weight = newPc.Weight,
+            Warranty = newPc.Warranty,
+            CreatedAt = newPc.CreatedAt,
+            Stock = newPc.Stock
+        };
     }
 }
