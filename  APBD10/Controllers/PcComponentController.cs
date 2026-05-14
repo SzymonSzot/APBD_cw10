@@ -1,13 +1,10 @@
-using APBD10.DTOs;
-using APBD10.Entities;
 using APBD10.Exceptions;
 using APBD10.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APBD10.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/pcs")]
     [ApiController]
     public class PcComponentController(IDbService dbService) : ControllerBase
     {
@@ -23,6 +20,21 @@ namespace APBD10.Controllers
             {
                 return NotFound(e.Message);
             }
+        }
+        
+        [HttpGet("{id:int}/components")]
+        public async Task<IActionResult> GetPcComponents(int id)
+        {
+            try
+            {
+                var res = await dbService.GetPcByIdAsync(id);
+                return Ok(res);
+            }
+            
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            };
         }
     }
 }
