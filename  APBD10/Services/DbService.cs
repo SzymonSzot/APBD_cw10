@@ -82,7 +82,7 @@ public class DbService : IDbService
         return res;
     }
 
-    public async Task<PostPcResponseDto> PostPc(PostPcDto dto)
+    public async Task<PostPcResponseDto> PostPcAsync(PostPcDto dto)
     {
         var newPc = new Pc()
         {
@@ -105,5 +105,22 @@ public class DbService : IDbService
             CreatedAt = newPc.CreatedAt,
             Stock = newPc.Stock
         };
+    }
+
+    public async Task UpdatePcAsync(int id, PutPcDto dto)
+    {
+        var pc = await _dbContext.Pcs.FirstOrDefaultAsync(p => p.Id == id);
+        if (pc == null)
+        {
+            throw new NotFoundException();
+        }
+        
+        pc.Name = dto.Name;
+        pc.Weight = dto.Weight;
+        pc.Warranty = dto.Warranty;
+        pc.CreatedAt = dto.CreatedAt;
+        pc.Stock = dto.Stock;
+        
+        await _dbContext.SaveChangesAsync();
     }
 }

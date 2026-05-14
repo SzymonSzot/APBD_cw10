@@ -47,9 +47,23 @@ namespace APBD10.Controllers
                 return BadRequest(ModelState);
             }
             
-            var res = await dbService.PostPc(dto);
+            var res = await dbService.PostPcAsync(dto);
             
             return Ok(res);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, [FromBody] PutPcDto dto)
+        {
+            try
+            {
+                await dbService.UpdatePcAsync(id, dto);
+                return Ok();
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
         }
     }
 }

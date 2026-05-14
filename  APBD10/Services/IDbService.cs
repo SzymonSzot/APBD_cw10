@@ -6,5 +6,6 @@ public interface IDbService
 {
     Task<IEnumerable<GetPcDto>> GetAllPcsAsync();
     Task<GetPcComponentsDto> GetPcByIdAsync(int id);
-    Task<PostPcResponseDto> PostPc(PostPcDto dto);
+    Task<PostPcResponseDto> PostPcAsync(PostPcDto dto);
+    Task UpdatePcAsync(int id, PutPcDto dto);
 }
