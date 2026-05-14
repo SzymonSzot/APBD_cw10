@@ -123,4 +123,16 @@ public class DbService : IDbService
         
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task DeletePcAsync(int id)
+    {
+        var pc = await _dbContext.Pcs.FirstOrDefaultAsync(p => p.Id == id);
+        if (pc == null)
+        {
+            throw new NotFoundException();
+        }
+        
+        _dbContext.Pcs.Remove(pc);
+        await _dbContext.SaveChangesAsync();
+    }
 }

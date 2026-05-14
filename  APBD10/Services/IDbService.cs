@@ -8,4 +8,5 @@ public interface IDbService
     Task<GetPcComponentsDto> GetPcByIdAsync(int id);
     Task<PostPcResponseDto> PostPcAsync(PostPcDto dto);
     Task UpdatePcAsync(int id, PutPcDto dto);
+    Task DeletePcAsync(int id);
 }

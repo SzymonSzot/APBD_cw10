@@ -65,5 +65,19 @@ namespace APBD10.Controllers
                 return NotFound(e.Message);
             }
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeletePc(int id)
+        {
+            try
+            {
+                await dbService.DeletePcAsync(id);
+                return NoContent();
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }
